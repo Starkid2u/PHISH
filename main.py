@@ -29,6 +29,7 @@ client = discord.Client()
 async def on_ready():
     print('hello world')
 
+helocooldown = 0
 guncooldown = 0
 gundmg = random.randrange(1, 100, 1)
 helo = '_________'
@@ -76,11 +77,11 @@ async def on_message(message):
         helo = argslist[1]
         await message.channel.send(f"phish helo set to {helo}")
         helocooldown = 1
-        asyncio.sleep(20)
+        await asyncio.sleep(20)
         helocooldown = 0
         return
     if (helo in message.content):
-        if message.author.id == 724745445045174334 or message.author.id == my_id:
+        if message.author.id == 724745445045174334:
             return
         await message.channel.send('daisan no bakudan, PHISH HELO')
         await message.author.add_roles(scared,reason="scared")
@@ -91,7 +92,7 @@ async def on_message(message):
         await message.author.remove_roles(scared,reason="scared")
         await message.channel.send(f"{message.author.mention} you are no longer scared")
         helocooldown = 1
-        asyncio.sleep(30)
+        await asyncio.sleep(30)
         helocooldown = 0
     if scared in message.author.roles:
         await message.delete()
@@ -280,7 +281,7 @@ async def on_message(message):
             await message.channel.send(f"you did {gundmg} damage")
         print(f"using PHISH GUN to attack {message.mentions[0].name} for {gundmg} damage")
         guncooldown = 1
-        await asyncio.sleep(10)
+        await asyncio.sleep(30)
         guncooldown = 0
 
 
