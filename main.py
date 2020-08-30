@@ -32,9 +32,8 @@ helo = '_________'
 @client.event
 async def on_message(message):
 
-    if message.channel.category.id == 736788095667666985:
-        return
-    
+    scared = discord.utils.get(message.guild.roles, id = 749429015621664790)
+
     if message.author == client.user:
         return
 
@@ -50,13 +49,26 @@ async def on_message(message):
             await message.channel.send(message.content[5:],files=images)
             print(f'repeating {message.content[5:]}')
 
+    args = message.content.replace(f"phish ","")
+    argslist = args.split(" ")
+
     global helo
-    if message.content.startswith('helo'):
-        helo == message.content
+    if message.content.startswith('phish helo'):
+        helo = argslist[1]
         await message.channel.send(helo)
+        return
 
     if (helo in message.content):
-        await message.channel.send('test')
+        if message.author.id == 724745445045174334:
+            return
+        await message.channel.send('daisan no bakudan, PHISH HELO')
+        await message.author.add_roles(scared,reason="scared")
+        print(f"{message.author.name} is petrified with fear")
+        await asyncio.sleep(20)
+        print(f"{message.author.name} is no longer scared")
+        await message.author.remove_roles(scared,reason="scared")
+        await message.channel.send(f"{message.author.mention} you are no longer scared")
+        helo = '_______'
 
 
 client.run(token)
