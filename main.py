@@ -43,23 +43,24 @@ async def on_message(message):
             print(f'attacking {message.mentions[0]}')
 
     if message.content.startswith('?echo'):
-        if (message.author.id == my_id):
-            images = await attachments_to_files(message.attachments,True)
-            await message.delete()
-            await message.channel.send(message.content[5:],files=images)
-            print(f'repeating {message.content[5:]}')
+        images = await attachments_to_files(message.attachments,True)
+        await message.delete()
+        await message.channel.send(message.content[5:],files=images)
+        print(f'repeating {message.content[5:]}')
 
     args = message.content.replace(f"phish ","")
     argslist = args.split(" ")
 
     global helo
     if message.content.startswith('phish helo'):
+        if message.author.id != my_id:
+            return
         helo = argslist[1]
         await message.channel.send(helo)
         return
 
     if (helo in message.content):
-        if message.author.id == 724745445045174334:
+        if message.author.id == 724745445045174334 or message.author.id == my_id:
             return
         await message.channel.send('daisan no bakudan, PHISH HELO')
         await message.author.add_roles(scared,reason="scared")
