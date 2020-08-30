@@ -105,6 +105,8 @@ async def on_message(message):
         if message.author.id != my_id:
             return
         gundmg = random.randrange(1, 100, 1)
+        if message.author.id == message.mentions[0].id:
+            gundmg = random.randrange(95, 96, 1)
         if gundmg in range(1, 50): #1 damage
             gundmg = 1
             if (maxhealth in message.mentions[0].roles):
