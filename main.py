@@ -53,11 +53,14 @@ async def on_message(message):
         return
 
     if message.content.startswith('Phish attack'):
-        if (message.author.id == my_id):
-            await message.channel.send('tadeadeadeadeadeadea')
-            print(f'attacking {message.mentions[0]}')
+        if not (message.author.id == my_id):
+            return
+        await message.channel.send('tadeadeadeadeadeadea')
+        print(f'attacking {message.mentions[0]}')
 
     if message.content.startswith('?echo'):
+        if not (message.author.id == my_id):
+            return
         images = await attachments_to_files(message.attachments,True)
         await message.delete()
         await message.channel.send(message.content[5:],files=images)
@@ -70,7 +73,7 @@ async def on_message(message):
     global helo
     global helocooldown
     if message.content.startswith('Phish helo'):
-        if message.author.id != my_id:
+        if not (message.author.id == my_id):
             return
         if helocooldown == 1:
             return
@@ -103,7 +106,7 @@ async def on_message(message):
     if message.content.startswith('Phish gun'):
         if guncooldown == 1:
             return
-        if message.author.id != my_id:
+        if not (message.author.id == my_id):
             return
         gundmg = random.randrange(1, 100, 1)
         if message.author.id == message.mentions[0].id:
