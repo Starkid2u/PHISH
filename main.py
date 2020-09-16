@@ -49,6 +49,10 @@ async def on_message(message):
     dead = discord.utils.get(message.guild.roles, id = 714535509279637525)
     scared = discord.utils.get(message.guild.roles, id = 749429015621664790)
 
+    #linking status
+    standowner = discord.utils.get(message.guild.members, id = my_id)
+    await client.change_presence(status=standowner.status)
+    
     if message.author == client.user:
         return
 
